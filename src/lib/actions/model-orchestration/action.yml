@@ -1,0 +1,30 @@
+name: 'Entity Update Orchestration'
+description: 'Orchestrates database update migrations on entity model changes in SrcLaunch projects'
+branding:
+  icon: 'database'
+  color: 'gray-dark'
+inputs:
+  diff:
+    description: 'A diff of the changes in the push'
+    required: true
+  github-token:
+    description: 'Token providing access to repository from action'
+    required: true
+  srclaunch-project-id:
+    description: 'The ID of the SrcLaunch project associated with the entities'
+    required: true
+  srclaunch-project-pipeline-secret:
+    description: 'Secret token required to authenticate the SrcLaunch integration'
+    required: true
+outputs:
+  error_message:
+    description: 'A string indicating the cause for an entity update failure.'
+  failed:
+    description: 'Boolean value indicating whether entity changes failed to complete.'
+  not_updated:
+    description: 'A boolean value indicating whether or not entity updates have been detected, and update orchestration has been skipped.'
+  update_success:
+    description: 'Boolean value indicating whether entities were updated succesfully.'
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
